@@ -1,0 +1,36 @@
+sources:
+  - name: src 
+    database: sourcedb
+    schema: mk_mall
+    tables:
+      - name: suppliers
+      - name: customers
+      - name: nations
+      - name: regions
+      - name: lineitems
+      - name: parts
+      - name: orders
+        config:
+          freshness:
+            warn_after: {count: 1, period: hour}
+            error_after: {count: 1, period: hour}
+          loaded_at_field: o_orderdate::timestamp_ntz  
+
+  - name: src2
+    database: mkmotors_dev
+    schema: staging
+    tables:
+      - name: stg_employees
+     
+      
+  - name: src3
+    database: analytics
+    schema: dbt_aditi
+    tables:
+      - name: stg_employees
+
+  - name: src4
+    database: analytics
+    schema: dbt_am
+    tables:
+      - name: suppliers
