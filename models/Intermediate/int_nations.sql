@@ -1,25 +1,23 @@
-{{ config (
-        materialized="incremental" ,
-        unique_key="nation_id",
-        on_schema_change="sync_all_columns"
-        ) 
-}}
-with
-    nation as (
-        select 
-            nation_id, 
-            region_id, 
-            name, 
-            comment, 
-            jodo_col,
-            updated_at
-        from {{ ref("stg_nations") }} s
-        {% if is_incremental() %}
-            where s.updated_at>
-            coalesce((select max(updated_at) from {{ this }}), '19OO-01-01')
-        {% endif %}
+{{ config(
+    materialized='incremental',
+    unique_key = 'nation_id'
+) }}
+
+with nation as (
+    select 
+        nation_id,
+        region_id,
+        name,
+        updated_at
+    from {{ ref('stg_nations') }} as s
+
+    {% if is_incremental() %}
+    where updated_at > (
+        select coalesce(max(updated_at), '1900-01-01'::timestamp)
+        from {{ this }}
     )
-select * from nation
+    {% endif %}
+)
 
-
-
+select *
+from nation

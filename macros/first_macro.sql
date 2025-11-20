@@ -4,7 +4,7 @@
 
 
 
-% macro phone(number) %}
+{% macro phone(number) %}
     '(' || substr({{ number }}, 1, 3) || ') ' ||
     substr({{ number }}, 4, 3) || '-' ||
     substr({{ number }}, 7, 4)
@@ -45,3 +45,5 @@
 {% do run_query (" copy into @stage_analytics from stg_nations partition
 by (region_id) file_format=(type = csv compression = none null_if=(' ')) header=true ; ")  %} 
 {% endmacro %}
+
+
