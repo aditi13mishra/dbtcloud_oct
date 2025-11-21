@@ -1,4 +1,4 @@
-ith source as (
+with source as (
     select * from {{ source ('src','orders') }}
 ),
 changed as (

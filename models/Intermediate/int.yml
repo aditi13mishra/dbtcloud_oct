@@ -1,0 +1,11 @@
+models: 
+  - name: int_suppliers
+    config:
+      group: sales 
+  - name: int_customers
+    config:
+      group: sales 
+  
+  - name: int_nations
+    config:
+      group: sales 
