@@ -15,23 +15,8 @@ models:
                 config:
                   store_failures: true
                   schema: error
-  - name: stage_regions
-    description: Table with all the regions
-    columns:
-      - name: region_id
-        description: '{{ doc("primary_key") }}'
-        data_tests:
-          - unique
-          - not_null
-      - name: name
-        data_tests:
-          - accepted_values:
-              arguments:
-                values: ['ASIA','AFRICA','AMERICA','MIDDLE EAST','SOUTH EAST','EUROPE']
-                config:
-                  store_failures: true
-                  schema: error
-
+  
+      
   - name: stg_nations
     config:
       group: sales
