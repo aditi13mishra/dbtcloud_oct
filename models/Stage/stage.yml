@@ -11,12 +11,12 @@ models:
         data_tests:
           - accepted_values:
               arguments:
-                values: ['ASIA','AFRICA','AMERICA','MIDDLE EAST','SOUTH EAST','EUROPE']
+                values: ['ASIA', 'AFRICA', 'AMERICA', 'MIDDLE EAST', 'SOUTH EAST', 'EUROPE']
                 config:
                   store_failures: true
                   schema: error
-  
-      
+
+
   - name: stg_nations
     config:
       group: sales
@@ -31,21 +31,24 @@ models:
         data_tests:
           - unique
           - not_null
-      - name: name 
-        data_type: string 
+      - name: name
+        data_type: string
       - name: updated_at
         data_type: timestamp_ntz
       - name: region_id
         data_type: int
         data_tests:
           - relationships:
-              to: ref('stg_regions')
-              field: region_id
-
-  
+              arguments:
+                to: ref('stg_regions')
+                field: region_id
+      - name: dbt_batch_ts
+        data_type: timestamp_ntz
+      - name: dbt_batch_id
+        data_type: string
   - name: stg_customers
     config:
-      group: sales 
+      group: sales
       pre_hook: "alter session set query_tag= 'hooks'"
     columns:
       - name: customer_id
@@ -55,9 +58,9 @@ models:
       - name: nation_id
         data_tests:
           - relationships:
-              to: ref('stg_nations')
-              field: nation_id
-
+              arguments:
+                to: ref('stg_nations')
+                field: nation_id
   - name: stg_orders
     columns:
       - name: order_id
@@ -68,17 +71,20 @@ models:
       - name: customer_id
         data_tests:
           - relationships:
-              to: ref('stg_customers')
-              field: customer_id
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
       - name: status_code
         data_tests:
           - accepted_values:
-              values: ['O', 'F', 'P']
+              arguments:
+                values: ['O', 'F', 'P']
 
       - name: priority_code
         data_tests:
           - accepted_values:
-              values: ['1-URGENT', '2-HIGH', '3-MEDIUM', '4-NOT SPECIFIED', '5-LOW']  
+              arguments:
+                values: ['1-URGENT', '2-HIGH', '3-MEDIUM', '4-NOT SPECIFIED', '5-LOW']
 
   - name: stg_line_items
     description: all items for each order
@@ -88,7 +94,6 @@ models:
 
     
 seeds:
-    - name: suppliers
-      config:
-        alias: suppliers_name 
-    
+  - name: suppliers
+    config:
+      alias: suppliers_name
