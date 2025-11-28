@@ -37,13 +37,9 @@ models:
     Stage:
       +materialized: table
 
-<<<<<<< HEAD
 
 vars:
   v_id: '_12'
 flags:
   require_generic_test_arguments_property: true
-=======
-vars: 
-  v_id: '_12'
->>>>>>> 792b6d2f607d9b0ba3d5b58c759f69e28dd4bd2d
+
