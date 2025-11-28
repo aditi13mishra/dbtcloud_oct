@@ -47,3 +47,8 @@ by (region_id) file_format=(type = csv compression = none null_if=(' ')) header=
 {% endmacro %}
 
 
+{% macro add_jinja_functions() %}
+    '{{ invocation_id }}'::string AS dbt_batch_id,
+    '{{ run_started_at.strftime("%Y-%m-%d") }}'::timestamp as dbt_batch_ts
+{% endmacro %}
+

@@ -6,6 +6,11 @@ sources:
       - name: suppliers
       - name: customers
       - name: nations
+        columns:
+          - name: n_nationkey
+            tests:
+              - not_null
+              - unique
       - name: regions
       - name: lineitems
       - name: parts
