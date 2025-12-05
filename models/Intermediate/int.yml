@@ -4,8 +4,7 @@ models:
       group: sales 
   - name: int_customers
     config:
-      group: sales 
-  
+      group: sales  
   - name: int_nations
     config:
       group: sales 
